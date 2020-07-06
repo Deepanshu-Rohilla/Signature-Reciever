@@ -34,6 +34,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.clear),
+        onPressed: ()=> _points.clear(),
+      ),
     );
   }
 }
