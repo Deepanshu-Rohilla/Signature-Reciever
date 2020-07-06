@@ -11,11 +11,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  List<Offset> _points = <Offset>[];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: GestureDetector(),
+        child: GestureDetector(
+          onPanUpdate: (DragUpdateDetails details){
+            setState(() {
+              RenderBox object = context.findRenderObject();
+              Offset _localPosition = object.globalToLocal(details.globalPosition);// Converting global position to local position
+              _points = List.from(_points)..add(_localPosition);
+
+            });
+          },
+          onPanEnd: (DragEndDetails details) => _points.add(null),
+          child: CustomPaint(
+            painter: Signature(points: _points),
+            size: Size.infinite,
+          ),
+        ),
       ),
     );
   }
